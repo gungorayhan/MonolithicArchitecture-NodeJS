@@ -18,4 +18,5 @@ __exportStar(require("./AdminRoute"), exports);
 __exportStar(require("./VendorRoute"), exports);
 __exportStar(require("./ShoppingRoute"), exports);
 __exportStar(require("./CustomerRoute"), exports);
+__exportStar(require("./DeliveryRoute"), exports);
 //# sourceMappingURL=index.js.map

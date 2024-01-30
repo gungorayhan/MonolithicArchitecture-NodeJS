@@ -16,6 +16,8 @@ route.get("/top-restaurants/:pincode", controllers_1.GetTopRestauranst);
 route.get("/foots-in-30-min/:pincode", controllers_1.GetFoodsIn30Min);
 //--search foods
 route.get("/search/:pincode", controllers_1.SearchFoods);
+//---find offers
+route.get("/offers/:pincode", controllers_1.GetAvailableOffers);
 //---find restaurand by id
 route.get("/restaurant/:id", controllers_1.RestaurantById);
 //# sourceMappingURL=ShoppingRoute.js.map

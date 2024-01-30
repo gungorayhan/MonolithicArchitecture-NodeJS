@@ -1,5 +1,6 @@
 import express from "express"
-import { CustomerLogin, CustomerSignup, CustomerVerify, EditCustomerProfile, GetCustomerProfile, RequestOtp } from "../controllers";
+import { AddCart, CreateOrder, CustomerLogin, CreatePayment, CustomerSignup, CustomerVerify, DeleteCart, EditCustomerProfile, GetCart, GetCustomerProfile, GetOrderById, GetOrders, RequestOtp, VerifyOffer } from "../controllers";
+import { Authenticate } from "../middlewares";
 
 
 const route=express.Router();
@@ -11,7 +12,8 @@ route.post("/signup",CustomerSignup)
 route.post("/login",CustomerLogin)
 
 
-//------------authendication---------------
+//------------authendication--------------
+route.use(Authenticate)
 
 //---Verify
 route.patch("/verify",CustomerVerify)
@@ -26,5 +28,24 @@ route.get("/otp",RequestOtp)
 route.get("/profile",GetCustomerProfile)
 
 route.patch("/profile",EditCustomerProfile)
+
+
+//cart
+route.post("/cart",AddCart);
+route.get("cart",GetCart);
+route.delete("/cart",DeleteCart);
+
+//apply offers
+route.get("/offer/verify/:id", VerifyOffer)
+
+//payment
+route.post("/create-payment",CreatePayment)
+
+//order
+route.post("/create-order", CreateOrder)
+route.get("/orders", GetOrders)
+route.get("order/:id",GetOrderById)
+
+
 
 export {route as CustomerRoute}

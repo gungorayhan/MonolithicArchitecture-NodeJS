@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { CreateVendorInput } from "../dto";
-import { Vendor } from "../models";
+import { Delivery, Transaction, Vendor } from "../models";
 import { GeneratePassword, GenerateSalt } from "../utility";
+import { DeliveryUserSignUp } from "./DeliveryController";
 
 
 //-------------------------------------------------- service ------------------------------------------------------
@@ -54,7 +55,9 @@ export const CreateVendor =async(req:Request, res:Response, next:NextFunction)=>
         rating:0,
         serviceAvailable:false,
         coverImage:[],
-        foods:[]
+        foods:[],
+        lat:0,
+        lng:0
     })
 
 
@@ -89,4 +92,51 @@ export const GetVendorByID =async(req:Request, res:Response, next:NextFunction)=
 
     return res.json({"message":"Vendor is not available"})
     
+}
+
+
+export const GetTransaction = async (req:Request,res:Response)=>{
+    const transaction = await Transaction.find();
+
+    if(transaction){
+        return res.status(200).json(transaction)
+    }
+
+    return res.json({message:"Transaction not available!"});
+}
+
+
+export const GetTransactionById = async (req:Request,res:Response)=>{
+    const id = req.params.id;
+    const transaction = await Transaction.findById(id);
+    if(transaction){
+        return res.status(200).json(transaction);
+    }
+    return res.json({message:"Transaction not available!"})
+}
+
+export const VerifyDeliveryUser = async (req:Request,res:Response)=>{
+    const {_id, status} = req.body;
+
+    if(_id){
+        const profile = await Delivery.findById(_id);
+        if(profile){
+            profile.verified = status;
+            const result = await profile.save();
+            return res.status(200).json(result); 
+        }
+    }
+    return res.status(400).json({message:"unable to verfy delivery user"})
+}
+
+export const GetDeliveryUsers = async (req:Request,res:Response)=>{
+
+    const deliveryUsers = await Delivery.find();
+
+    if(deliveryUsers){
+        return res.status(200).json(deliveryUsers)
+    }
+return res.status(400).json({
+    message:"unable to get delivery users"
+})
 }

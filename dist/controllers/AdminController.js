@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetVendorByID = exports.GetVendors = exports.CreateVendor = exports.FindVendor = void 0;
+exports.GetDeliveryUsers = exports.VerifyDeliveryUser = exports.GetTransactionById = exports.GetTransaction = exports.GetVendorByID = exports.GetVendors = exports.CreateVendor = exports.FindVendor = void 0;
 var models_1 = require("../models");
 var utility_1 = require("../utility");
 //-------------------------------------------------- service ------------------------------------------------------
@@ -88,7 +88,9 @@ var CreateVendor = function (req, res, next) { return __awaiter(void 0, void 0, 
                         rating: 0,
                         serviceAvailable: false,
                         coverImage: [],
-                        foods: []
+                        foods: [],
+                        lat: 0,
+                        lng: 0
                     })];
             case 4:
                 createVendor = _b.sent();
@@ -131,4 +133,74 @@ var GetVendorByID = function (req, res, next) { return __awaiter(void 0, void 0,
     });
 }); };
 exports.GetVendorByID = GetVendorByID;
+var GetTransaction = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var transaction;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, models_1.Transaction.find()];
+            case 1:
+                transaction = _a.sent();
+                if (transaction) {
+                    return [2 /*return*/, res.status(200).json(transaction)];
+                }
+                return [2 /*return*/, res.json({ message: "Transaction not available!" })];
+        }
+    });
+}); };
+exports.GetTransaction = GetTransaction;
+var GetTransactionById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, transaction;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.params.id;
+                return [4 /*yield*/, models_1.Transaction.findById(id)];
+            case 1:
+                transaction = _a.sent();
+                if (transaction) {
+                    return [2 /*return*/, res.status(200).json(transaction)];
+                }
+                return [2 /*return*/, res.json({ message: "Transaction not available!" })];
+        }
+    });
+}); };
+exports.GetTransactionById = GetTransactionById;
+var VerifyDeliveryUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, _id, status, profile, result;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _a = req.body, _id = _a._id, status = _a.status;
+                if (!_id) return [3 /*break*/, 3];
+                return [4 /*yield*/, models_1.Delivery.findById(_id)];
+            case 1:
+                profile = _b.sent();
+                if (!profile) return [3 /*break*/, 3];
+                profile.verified = status;
+                return [4 /*yield*/, profile.save()];
+            case 2:
+                result = _b.sent();
+                return [2 /*return*/, res.status(200).json(result)];
+            case 3: return [2 /*return*/, res.status(400).json({ message: "unable to verfy delivery user" })];
+        }
+    });
+}); };
+exports.VerifyDeliveryUser = VerifyDeliveryUser;
+var GetDeliveryUsers = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var deliveryUsers;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, models_1.Delivery.find()];
+            case 1:
+                deliveryUsers = _a.sent();
+                if (deliveryUsers) {
+                    return [2 /*return*/, res.status(200).json(deliveryUsers)];
+                }
+                return [2 /*return*/, res.status(400).json({
+                        message: "unable to get delivery users"
+                    })];
+        }
+    });
+}); };
+exports.GetDeliveryUsers = GetDeliveryUsers;
 //# sourceMappingURL=AdminController.js.map

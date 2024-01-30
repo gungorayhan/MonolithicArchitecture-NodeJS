@@ -12,7 +12,7 @@ npm i class-validator class-transformer
 npm i twilio
 </p>
 
-# folder
+# folder src
 <p>
 index.ts
 config
@@ -31,8 +31,4 @@ models
 "experimentalDecorators": true,
 
 
-##
- // "engines":{
-  //   "node":"14.15.2",
-  //   "npm" :"6.14.9"
-  // },
+## git init

@@ -13,7 +13,9 @@ interface VendorDoc extends Document {
     serviceAvailable: boolean,
     coverImages: [string],
     rating: number,
-    foods:any
+    foods:any,
+    lat:number,
+    lng:number
 }
 
 const VendorSchema = new Schema({
@@ -32,7 +34,9 @@ const VendorSchema = new Schema({
     foods:[{
         type:mongoose.Schema.ObjectId,
         ref:"food"
-    }]
+    }],
+    lat:{type:Number},
+    lng:{type:Number}
 },
 {
     toJSON:{

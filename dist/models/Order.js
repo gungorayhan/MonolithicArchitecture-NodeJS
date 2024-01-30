@@ -23,39 +23,35 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Vendor = void 0;
+exports.Order = void 0;
 var mongoose_1 = __importStar(require("mongoose"));
-var VendorSchema = new mongoose_1.Schema({
-    name: { type: String, require: true },
-    owner: { type: String, require: true },
-    foodType: { type: [String] },
-    pincode: { type: String, require: true },
-    address: { type: String, require: true },
-    phone: { type: String, require: true },
-    email: { type: String, require: true },
-    password: { type: String, require: true },
-    salt: { type: String, require: true },
-    serviceAvailable: { type: Boolean },
-    coverImages: { type: [String] },
-    rating: { type: Number },
-    foods: [{
-            type: mongoose_1.default.Schema.ObjectId,
-            ref: "food"
+var OrderSchema = new mongoose_1.Schema({
+    orderId: { type: String, require: true },
+    vendorId: { type: String, require: true },
+    items: [{
+            food: { type: mongoose_1.Schema.Types.ObjectId, ref: "food", require: true },
+            unit: { type: Number, require: true }
         }],
-    lat: { type: Number },
-    lng: { type: Number }
+    totalAmount: { type: Number, require: true },
+    paidAmount: { type: Number, require: true },
+    orderDate: { type: Date },
+    // paidThrough: { type: String },
+    // paymentResponse: { type: String },
+    orderStatus: { type: String },
+    remarks: { type: String },
+    // deliveryId:{type:String},
+    // offerId:{type:String},
+    readyTime: { type: Number }
 }, {
     toJSON: {
         transform: function (doc, ret) {
-            delete ret.password,
-                delete ret.salt,
-                delete ret.__v,
+            delete ret.__v,
                 delete ret.createdAt,
                 delete ret.updatedAt;
         }
     },
     timestamps: true
 });
-var Vendor = mongoose_1.default.model("vendor", VendorSchema);
-exports.Vendor = Vendor;
-//# sourceMappingURL=Vendor.js.map
+var Order = mongoose_1.default.model("order", OrderSchema);
+exports.Order = Order;
+//# sourceMappingURL=Order.js.map

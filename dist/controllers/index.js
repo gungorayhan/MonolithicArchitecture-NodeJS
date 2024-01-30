@@ -18,4 +18,5 @@ __exportStar(require("./AdminController"), exports);
 __exportStar(require("./VendorController"), exports);
 __exportStar(require("./ShoppingController"), exports);
 __exportStar(require("./CustomerController"), exports);
+__exportStar(require("./DeliveryController"), exports);
 //# sourceMappingURL=index.js.map

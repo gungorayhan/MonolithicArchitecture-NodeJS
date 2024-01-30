@@ -27,4 +27,12 @@ route.patch("/service", controllers_1.UpdateVendorService);
 route.patch("/coverImage", images, controllers_1.UpdateVendorCoverImage);
 route.post("/food", images, controllers_1.AddFood);
 route.get("/foods", controllers_1.GetFoods);
+//orders
+route.get("/orders", controllers_1.GetOrderDetails);
+route.put("/order/:id/process", controllers_1.ProcessOrder);
+route.get("/order/:id", controllers_1.GetOrderDetails);
+//offers
+route.get("/offers", controllers_1.GetOffers);
+route.post("/offer", controllers_1.AddFood);
+route.put("/offer/:id", controllers_1.EditOffer);
 //# sourceMappingURL=VendorRoute.js.map

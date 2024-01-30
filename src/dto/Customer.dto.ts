@@ -39,3 +39,38 @@ export class EditCustomerProfileInputs {
     address:string
 
 }
+
+
+export interface OrderInputs{
+  txnId:string;
+  amount:string;
+  items:[CartItem]
+}
+export interface CartItem{
+    _id:string;
+    unit:number;
+}
+
+
+export class CreateDeliveryUserInputs {
+    @IsEmail()
+    email:string;
+
+    @Length(7,12)
+    phone:string;
+
+    @Length(6,12)
+    password:string;
+
+    @Length(3,12)
+    firstName:string;
+
+    @Length(3, 12)
+    lastName:string;
+
+    @Length(6,12)
+    address:string;
+
+    @Length(4, 12)
+    pincode:string
+}
